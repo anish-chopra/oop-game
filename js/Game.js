@@ -19,19 +19,33 @@ class Game {
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
         console.log(this.activePhrase);
+        console.log(this.activePhrase.phrase.split(" ").join("").length);
         this.activePhrase.checkLetter();
     }
     checkForWin() {
-        let letter = document.getElementsByClassName("letter");
-        // let result = false;
-        // for (let i = 0; i < letter.length; i++) {
-        //     if (letter[i].classList.contains("show")) {
-        //         result = true;
-        //     } else {
-                
-        //     }
-        // }
+        let letter = Array.from(document.getElementsByClassName("letter"));
         let result = letter.every( e  => e.classList.contains("show"));
-        console.log(result);
+        return result
+    }
+    removeLife() {
+        let img = document.querySelectorAll("img");
+        img[this.missed].src = "../images/lostHeart.png"
+        this.missed = this.missed + 1;
+        if (this.missed == 5 || this.checkForWin()) {
+        this.gameOver();
+        }
+    }
+    gameOver() {
+        if (this.missed == 5) {
+        document.getElementById("overlay").style.visibility = "visible";
+        document.getElementById("game-over-message").innerHTML = "You Lose!"
+        document.getElementById("overlay").classList.remove("start");
+        document.getElementById("overlay").classList.add("lose");
+    } else if (this.checkForWin()) {
+        document.getElementById("overlay").style.visibility = "visible";
+        document.getElementById("game-over-message").innerHTML = "You Win!"
+        document.getElementById("overlay").classList.remove("start");
+        document.getElementById("overlay").classList.add("win");
+    }
     }
 }

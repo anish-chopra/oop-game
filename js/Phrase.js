@@ -20,22 +20,31 @@ class Phrase {
           }
         }
         checkLetter() {
+            let missedLetter = 0;
             let qwerty = document.getElementsByClassName("key");
             for (let i = 0; i < qwerty.length; i++) {
                 qwerty[i].addEventListener("click", e => {
-                    for (let k = 0; k < this.phrase.length; k++) {
+                    console.log(e.target.innerHTML)
+                    for (let k = 0; k < this.phrase.split(" ").join("").length; k++) {
                         if (e.target.innerHTML == this.phrase[k]) {
-                            this.showMatchedLetter(e.target.innerHTML)
+                            this.showMatchedLetter(this.phrase[k])
                         }
+                        // } else {
+                        //     missedLetter = missedLetter + 1;
+                        //     console.log(missedLetter);
+                        // }
+                        // if (missedLetter == this.phrase.split(" ").join("").length){
+                        //     game.removeLife();
+                        // }
                     }
-                    
+                    missedLetter = 0;
                 })
             }
         }
         showMatchedLetter(letter) {
             let phraseLetter = document.getElementsByClassName("letter");
-            for (let i = 0; i , i < phraseLetter.length; i++) {
-                if (letter == phraseLetter[i].innerHTML) {
+            for (let i = 0; i < phraseLetter.length; i++) {
+                if (letter === phraseLetter[i].innerHTML) {
                     phraseLetter[i].classList.add("show");
                 }
             }
