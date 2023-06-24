@@ -8,12 +8,14 @@ class Game {
         this.phrases = ['blessing in disguise', 'dime a dozen', 'bite the bullet', 'beat around the bush', 'pull yourself together'];
         this.activePhrase = null;
     }
+    // THIS METHOD GETS A RANDOM PHRASE
     getRandomPhrase() {
         let arrayLength = this.phrases.length;
         let randomPhrase = this.phrases[(Math.floor(Math.random() * arrayLength))];
         let newPhrase = new Phrase(randomPhrase);
         return newPhrase
     }
+    // THIS METHOD STARTS THE GAME
     startGame() {
         document.querySelector("ul").innerHTML = "";
         document.querySelectorAll(".key").forEach(element => element.classList.remove("chosen"));
@@ -23,13 +25,15 @@ class Game {
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
         console.log(this.activePhrase);
-        this.activePhrase.checkLetter2();
+        this.activePhrase.checkLetter();
     }
+    // THIS METHOD WILL CHECK IF THE GAME HAS BEEN WON
     checkForWin() {
         let letter = Array.from(document.getElementsByClassName("letter"));
         let result = letter.every( e  => e.classList.contains("show"));
         return result;
     }
+    // THIS METHOD WILL REMOVE A LIFE/HEART WHEN AN INCORRECT LETTER IS GUESSED
     removeLife() {
         if (this.missed < 4) {
         let img = document.querySelectorAll("img");
@@ -39,6 +43,7 @@ class Game {
         this.gameOver();
         }
     }
+    // THIS METHOD RUNS WHEN THE GAME IS OVER
     gameOver() {
         if (this.missed >= 4) {
         document.getElementById("overlay").style.visibility = "visible";
@@ -52,8 +57,9 @@ class Game {
         document.getElementById("overlay").classList.add("win");
     }
     }
+    // THIS METHOD HANDLES ALL THE METHODS AND PUTS THE GAME TOGETHER
     handleInteraction(button){
-        if (this.activePhrase.checkLetter2(button.innerHTML)) {
+        if (this.activePhrase.checkLetter(button.innerHTML)) {
             this.activePhrase.showMatchedLetter(button.innerHTML);
             button.classList.add("chosen");
             button.disabled = "true";
