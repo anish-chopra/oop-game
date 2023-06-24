@@ -41,4 +41,19 @@ let game;
 document.getElementById(`btn__reset`).addEventListener("click", () => {
     game = new Game()
     game.startGame();
-})
+});
+
+let qwerty = document.getElementsByClassName("key");
+
+    for (let i = 0; i < qwerty.length; i++) {
+    qwerty[i].addEventListener("click", e => {
+        game.handleInteraction(e.target);
+        console.log(e.target)
+    });
+};
+
+for (let i = 0; i < qwerty.length; i++) {
+    qwerty[i].addEventListener("keypress", f => {
+        game.handleInteraction(f.target);
+    });
+}

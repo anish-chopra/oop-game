@@ -20,31 +20,45 @@ class Phrase {
           }
         }
         checkLetter() {
-            let missedLetter = 0;
+            let missedLetter = true;
             let qwerty = document.getElementsByClassName("key");
             for (let i = 0; i < qwerty.length; i++) {
                 qwerty[i].addEventListener("click", e => {
-                    console.log(e.target.innerHTML)
-                    for (let k = 0; k < this.phrase.split(" ").join("").length; k++) {
-                        if (e.target.innerHTML == this.phrase[k]) {
-                            this.showMatchedLetter(this.phrase[k])
-                        }
-                        // } else {
-                        //     missedLetter = missedLetter + 1;
-                        //     console.log(missedLetter);
-                        // }
-                        // if (missedLetter == this.phrase.split(" ").join("").length){
-                        //     game.removeLife();
-                        // }
+                    for (let k = 0; k < this.phrase.length; k++) {
+                        if (e.target.innerHTML === this.phrase[k]) {
+                            // this.showMatchedLetter(e.target.innerHTML)
+                            missedLetter = false;
+                        } 
                     }
-                    missedLetter = 0;
+                    if (missedLetter === false) {
+                        // console.log("true");
+                        missedLetter = true;
+                        return true;
+                    } else {
+                        // console.log("false");
+                        missedLetter = true;
+                        return false;
+                    }
                 })
+            }
+        }
+        checkLetter2(letter) {
+            let missedLetter = false;
+            for (let i = 0; i < this.phrase.length; i++) {
+                if (letter == this.phrase[i]) {
+                    missedLetter = true;
+                } 
+            }
+            if (missedLetter) {
+                return true
+            } else {
+                return false;
             }
         }
         showMatchedLetter(letter) {
             let phraseLetter = document.getElementsByClassName("letter");
             for (let i = 0; i < phraseLetter.length; i++) {
-                if (letter === phraseLetter[i].innerHTML) {
+                if (letter == phraseLetter[i].innerHTML) {
                     phraseLetter[i].classList.add("show");
                 }
             }
