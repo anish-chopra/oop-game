@@ -31,6 +31,12 @@ class Game {
                 keys[i].disabled = false
             }
         }
+        if (document.getElementById("overlay").className = "lose") {
+            document.getElementById("overlay").classList.remove("lose");
+        }
+        if (document.getElementById("overlay").className = "win") {
+            document.getElementById("overlay").classList.remove("win");
+        }
         document.querySelectorAll("img").forEach(image => image.src = "../images/liveHeart.png");
         document.getElementById("overlay").style.visibility = "hidden";
         this.activePhrase = this.getRandomPhrase();
