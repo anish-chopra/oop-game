@@ -5,21 +5,32 @@
 class Game {
     constructor() {
         this.missed = 0;
-        this.phrases = ['blessing in disguise', 'dime a dozen', 'bite the bullet', 'beat around the bush', 'pull yourself together'];
+        this.phrases = [
+            new Phrase('blessing in disguise'),
+            new Phrase('dime a dozen'),
+            new Phrase('bite the bullet'), 
+            new Phrase('beat around the bush'),
+            new Phrase('pull yourself together')
+        ];
         this.activePhrase = null;
     }
     // THIS METHOD GETS A RANDOM PHRASE
     getRandomPhrase() {
-        let arrayLength = this.phrases.length;
-        let randomPhrase = this.phrases[(Math.floor(Math.random() * arrayLength))];
-        let newPhrase = new Phrase(randomPhrase);
+        let randomPhrase = Math.floor(Math.random() * this.phrases.length);
+        let newPhrase = this.phrases[randomPhrase];
         return newPhrase
     }
     // THIS METHOD STARTS THE GAME
     startGame() {
+        let keys = document.querySelectorAll(".key");
         document.querySelector("ul").innerHTML = "";
-        document.querySelectorAll(".key").forEach(element => element.classList.remove("chosen"));
-        document.querySelectorAll(".key").forEach(element => element.classList.remove("wrong"));
+        keys.forEach(element => element.classList.remove("chosen"));
+        keys.forEach(element => element.classList.remove("wrong"));
+        for (let i = 0; i < keys.length; i++) {
+            if (keys[i].disabled === true) {
+                keys[i].disabled = false
+            }
+        }
         document.querySelectorAll("img").forEach(image => image.src = "../images/liveHeart.png");
         document.getElementById("overlay").style.visibility = "hidden";
         this.activePhrase = this.getRandomPhrase();
